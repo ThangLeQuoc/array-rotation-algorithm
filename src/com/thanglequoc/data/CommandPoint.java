@@ -20,10 +20,10 @@ public class CommandPoint {
     }
     
     public int getBottomRightCol(){
-	return (b-1)+(d-1);
+	return b+d-1;
     }
     
     public int getBottomRightRow(){
-	return (a-1) + (d-1);
+	return a + d-1;
     }
 }

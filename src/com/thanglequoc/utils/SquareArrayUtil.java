@@ -44,12 +44,12 @@ public class SquareArrayUtil {
 	int bottomRightCol = commandPoint.getBottomRightCol();
 	int bottomRightRow = commandPoint.getBottomRightRow();
 	
-	int partitionSquareRow = commandPoint.getBottomRightRow() - commandPoint.getTopLeftRow();
-	int partitionSquareCol = commandPoint.getBottomRightCol() - commandPoint.getTopLeftCol();
+	int partitionSquareRow = commandPoint.getBottomRightRow() - commandPoint.getTopLeftRow() +1;
+	int partitionSquareCol = commandPoint.getBottomRightCol() - commandPoint.getTopLeftCol() +1;
 	int[][] partitionSquare = new int[partitionSquareRow][partitionSquareCol];
 	
-	for(int i = topLeftRow-1,  partitionRowIndex = 0; i<(bottomRightRow-1); i++, partitionRowIndex++){
-	    for(int j = topLeftCol -1, partitionColumnIndex =0; j< bottomRightRow -1 ; j++, partitionColumnIndex++){
+	for(int i = topLeftRow,  partitionRowIndex = 0; i<=bottomRightRow; i++, partitionRowIndex++){
+	    for(int j = topLeftCol, partitionColumnIndex =0; j<= bottomRightCol ; j++, partitionColumnIndex++){
 		partitionSquare[partitionRowIndex][partitionColumnIndex] = square[i][j];
 	    }
 	}
