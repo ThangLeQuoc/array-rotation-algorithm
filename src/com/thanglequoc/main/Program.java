@@ -13,21 +13,31 @@ public class Program {
 	Scanner sc = new Scanner(System.in);
 	int squareSize = sc.nextInt();
 	int[][] square = SquareArrayUtil.buildSquareArray(squareSize);
-	
+
 	int numberOfCommands = sc.nextInt();
-	
+
 	List<CommandPoint> commands = new ArrayList<>();
-	for(int i=0; i< numberOfCommands;i++){
+	for (int i = 0; i < numberOfCommands; i++) {
 	    int a = sc.nextInt();
 	    int b = sc.nextInt();
 	    int d = sc.nextInt();
 	    CommandPoint commandPoint = new CommandPoint(a, b, d);
 	    commands.add(commandPoint);
 	}
-	
-	
-	//SquareArrayUtil.rotateSquare(myDickArray);
-	//SquareArrayUtil.printSquare(myDickArray);
+
+	int numberOfQueries = sc.nextInt();
+	List<Integer> queries = new ArrayList<>();
+	if (numberOfQueries > 0) {
+	    for (int i = 0; i < numberOfQueries; i++) {
+		int targetNumber = sc.nextInt();
+		queries.add(Integer.valueOf(targetNumber));
+	    }
+	}
+
+	SquareArrayUtil.performSquareRotationWIthCommands(square, commands);
+	for (Integer targetNumber : queries) {
+	    SquareArrayUtil.printElementLocationInSquare(square, targetNumber.intValue());
+	}
 	
     }
 

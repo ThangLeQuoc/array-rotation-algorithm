@@ -32,9 +32,9 @@ public class SquareArrayUtil {
     
     public static void performSquareRotationWIthCommands(int [][]square, List<CommandPoint> commands){
 	for (CommandPoint commandPoint : commands) {
-	    int[][] partitionSquare = SquareArrayUtil.getPartitionSquareFromCommandPoint(square, commandPoint);
-	    
-	    
+	    int[][] partitionSquare = getPartitionSquareFromCommandPoint(square, commandPoint);
+	    rotateSquare(partitionSquare);
+	    updateSquareWithPartitionSquareByCommandPoint(square, partitionSquare, commandPoint);
 	}
     }
     
@@ -56,7 +56,18 @@ public class SquareArrayUtil {
 	return partitionSquare;
     }
     
-    
+    public static void updateSquareWithPartitionSquareByCommandPoint(int[][] square, int[][] partitionSquare, CommandPoint commandPoint){
+	int topLeftRow = commandPoint.getTopLeftRow();
+	int topLeftCol = commandPoint.getTopLeftCol();
+	int bottomRightCol = commandPoint.getBottomRightCol();
+	int bottomRightRow = commandPoint.getBottomRightRow();
+	
+	for(int i= topLeftRow, partitionRowIndex =0; i<= bottomRightRow;i++, partitionRowIndex++){
+	    for(int j= topLeftCol, partitionColIndex = 0; j<= bottomRightCol ;j++, partitionColIndex++){
+		square[i][j] = partitionSquare[partitionRowIndex][partitionColIndex];
+	    }
+	}
+    }
     
     
     public  static void rotateSquare(int [][] square){
@@ -84,6 +95,19 @@ public class SquareArrayUtil {
 		System.out.printf("%3d", square[i][j]);
 	    }
 	    System.out.println();
+	}
+    }
+    
+    public static void printElementLocationInSquare(int[][]square, int key){
+	int row = square.length;
+	int col = square[0].length;
+	for(int i =0; i< row; i++){
+	    for(int j=0; j< col; j++){
+		if(square[i][j] == key){
+		    System.out.println((i+1)+" "+(j+1));
+		    return;
+		}
+	    }
 	}
     }
 }
