@@ -38,7 +38,5 @@ public class Program {
 	for (Integer targetNumber : queries) {
 	    SquareArrayUtil.printElementLocationInSquare(square, targetNumber.intValue());
 	}
-	
     }
-
 }

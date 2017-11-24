@@ -9,17 +9,18 @@ import com.thanglequoc.data.CommandPoint;
  * The Class SquareArrayUtil.
  */
 public class SquareArrayUtil {
-    
+    private static final int MAXIMUM_SQUARE_SIZE = 7;
+    private SquareArrayUtil(){}
 
     /**
      * Builds the square array.
      *
      * @param size the size of the square array
-     * @return the two dimensional square array
+     * @return the two dimensional square array with element value from 0 to (size*size -1)
      */
     public static int[][] buildSquareArray(int size) throws IllegalArgumentException{
-	if(size >7){
-	    throw new IllegalArgumentException("Size of square must be less than 8");
+	if(size >MAXIMUM_SQUARE_SIZE){
+	    throw new IllegalArgumentException("Size of square must be less than "+MAXIMUM_SQUARE_SIZE+1);
 	}
 	
 	int[][] square = new int[size][size];
@@ -30,15 +31,29 @@ public class SquareArrayUtil {
 	return square;
     }
     
+    
+    /**
+     * Perform square rotation with list of command element.
+     *
+     * @param square the square
+     * @param commands the commands
+     */
     public static void performSquareRotationWIthCommands(int [][]square, List<CommandPoint> commands){
 	for (CommandPoint commandPoint : commands) {
-	    int[][] partitionSquare = getPartitionSquareFromCommandPoint(square, commandPoint);
-	    rotateSquare(partitionSquare);
+	    int[][] partitionSquare = extractPartitionSquareByCommandPoint(square, commandPoint);
+	    rotateSquare90DegreeClockwise(partitionSquare);
 	    updateSquareWithPartitionSquareByCommandPoint(square, partitionSquare, commandPoint);
 	}
     }
     
-    public  static  int[][] getPartitionSquareFromCommandPoint(int[][]square, CommandPoint commandPoint){
+    /**
+     * Extract the partition square from parent square by command point.
+     *
+     * @param square the square
+     * @param commandPoint the command point
+     * @return the extracted partition square 
+     */
+    public  static  int[][] extractPartitionSquareByCommandPoint(int[][]square, CommandPoint commandPoint){
 	int topLeftRow = commandPoint.getTopLeftRow();
 	int topLeftCol = commandPoint.getTopLeftCol();
 	int bottomRightCol = commandPoint.getBottomRightCol();
@@ -56,6 +71,13 @@ public class SquareArrayUtil {
 	return partitionSquare;
     }
     
+    /**
+     * Update square with partition square by command point.
+     *
+     * @param square the square
+     * @param partitionSquare the partition square
+     * @param commandPoint the command point
+     */
     public static void updateSquareWithPartitionSquareByCommandPoint(int[][] square, int[][] partitionSquare, CommandPoint commandPoint){
 	int topLeftRow = commandPoint.getTopLeftRow();
 	int topLeftCol = commandPoint.getTopLeftCol();
@@ -70,7 +92,12 @@ public class SquareArrayUtil {
     }
     
     
-    public  static void rotateSquare(int [][] square){
+    /**
+     * Rotate the square 90 degree clockwise.
+     *
+     * @param square the square
+     */
+    public  static void rotateSquare90DegreeClockwise(int [][] square){
 	int row = square.length;
 	int col = square[0].length;
 	int [][] cloneSquare = new int[row][col];
@@ -87,6 +114,12 @@ public class SquareArrayUtil {
 	}
     }
     
+    
+    /**
+     * Prints the square.
+     *
+     * @param square the square
+     */
     public  static void printSquare(int[][] square){
 	int row = square.length;
 	int col = square[0].length;
@@ -98,6 +131,12 @@ public class SquareArrayUtil {
 	}
     }
     
+    /**
+     * Prints the element location in square.
+     *
+     * @param square the square
+     * @param key the element value
+     */
     public static void printElementLocationInSquare(int[][]square, int key){
 	int row = square.length;
 	int col = square[0].length;
